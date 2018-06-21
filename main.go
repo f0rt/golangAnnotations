@@ -11,6 +11,7 @@ import (
 	"github.com/MarcGrol/golangAnnotations/generator/event"
 	"github.com/MarcGrol/golangAnnotations/generator/eventService"
 	"github.com/MarcGrol/golangAnnotations/generator/jsonHelpers"
+	"github.com/MarcGrol/golangAnnotations/generator/outbound"
 	"github.com/MarcGrol/golangAnnotations/generator/repository"
 	"github.com/MarcGrol/golangAnnotations/generator/rest"
 	"github.com/MarcGrol/golangAnnotations/model"
@@ -47,6 +48,7 @@ func runAllGenerators(inputDir string, parsedSources model.ParsedSources) error 
 		"json-helpers":  jsonHelpers.NewGenerator(),
 		"rest":          rest.NewGenerator(),
 		"repository":    repository.NewGenerator(),
+		"outbound":      outbound.NewGenerator(),
 	} {
 		err := g.Generate(inputDir, parsedSources)
 		if err != nil {

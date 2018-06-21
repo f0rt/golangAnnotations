@@ -24,6 +24,19 @@ func GetPackageNameForStructs(structs []model.Struct) (string, error) {
 	return packageName, nil
 }
 
+func GetPackageNameForInterfaces(interfaces []model.Interface) (string, error) {
+	if len(interfaces) == 0 {
+		return "", fmt.Errorf("Need at least one interface to determine package-name")
+	}
+	packageName := interfaces[0].PackageName
+	for _, s := range interfaces {
+		if s.PackageName != packageName {
+			return "", fmt.Errorf("List of interfaces has multiple package-names")
+		}
+	}
+	return packageName, nil
+}
+
 func getPackageNameForEnums(enums []model.Enum) (string, error) {
 	if len(enums) == 0 {
 		return "", fmt.Errorf("Need at least one enum to determine package-name")
