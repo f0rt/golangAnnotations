@@ -4,9 +4,10 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/ec16a2ec356e87ccfbaf/maintainability)](https://codeclimate.com/github/MarcGrol/golangAnnotations/maintainability)
 [![CodeScene Code Health](https://codescene.io/projects/1411/status-badges/code-health)](https://codescene.io/projects/1411)
 
-[Detailed explanation](https://github.com/MarcGrol/golangAnnotations/wiki)
 
 ## Summary
+
+[Detailed explanation](https://github.com/MarcGrol/golangAnnotations/wiki)
 
 The golangAnnotations-tool parses your golang source-code into an intermediate representation.
 

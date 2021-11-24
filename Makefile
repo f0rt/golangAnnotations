@@ -68,7 +68,7 @@ clean:
 
 install: clean
 	@echo "----------------------------"
-	@echo "Installing"
+	@echo "Installing	"
 	@echo "----------------------------"
 	go install ./...
 

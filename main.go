@@ -6,15 +6,15 @@ import (
 	"log"
 	"os"
 
-	"github.com/MarcGrol/golangAnnotations/generator"
-	"github.com/MarcGrol/golangAnnotations/generator/ast"
-	"github.com/MarcGrol/golangAnnotations/generator/event"
-	"github.com/MarcGrol/golangAnnotations/generator/eventService"
-	"github.com/MarcGrol/golangAnnotations/generator/jsonHelpers"
-	"github.com/MarcGrol/golangAnnotations/generator/repository"
-	"github.com/MarcGrol/golangAnnotations/generator/rest"
-	"github.com/MarcGrol/golangAnnotations/model"
-	"github.com/MarcGrol/golangAnnotations/parser"
+	generator "github.com/MarcGrol/golangAnnotations/codegeneration"
+	"github.com/MarcGrol/golangAnnotations/codegeneration/event"
+	"github.com/MarcGrol/golangAnnotations/codegeneration/eventService"
+	"github.com/MarcGrol/golangAnnotations/codegeneration/jsonHelpers"
+	"github.com/MarcGrol/golangAnnotations/codegeneration/jsonast"
+	"github.com/MarcGrol/golangAnnotations/codegeneration/repository"
+	"github.com/MarcGrol/golangAnnotations/codegeneration/rest"
+	"github.com/MarcGrol/golangAnnotations/golangparsing"
+	"github.com/MarcGrol/golangAnnotations/intermediatemodel"
 )
 
 const (
@@ -28,7 +28,7 @@ var inputDir *string
 func main() {
 	processArgs()
 
-	parsedSources, err := parser.New().ParseSourceDir(*inputDir, "^.*.go$", excludeMatchPattern)
+	parsedSources, err := golangparsing.New().ParseSourceDir(*inputDir, "^.*.go$", excludeMatchPattern)
 	if err != nil {
 		log.Printf("Error parsing golang sources in %s: %s", *inputDir, err)
 		os.Exit(1)
@@ -39,9 +39,9 @@ func main() {
 	os.Exit(0)
 }
 
-func runAllGenerators(inputDir string, parsedSources model.ParsedSources) {
+func runAllGenerators(inputDir string, parsedSources intermediatemodel.ParsedSources) {
 	for name, g := range map[string]generator.Generator{
-		"ast":           ast.NewGenerator(),
+		"ast":           jsonast.NewGenerator("ast.json"),
 		"event":         event.NewGenerator(),
 		"event-service": eventService.NewGenerator(),
 		"json-helpers":  jsonHelpers.NewGenerator(),
